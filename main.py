@@ -64,7 +64,6 @@ def move_mouse():                                           # This function is r
         if stop_event.is_set():                             # If the 'stop_event' is set (indicating the movement should be stopped), the loop breakes. Otherwise, it updates the initial position and uses 'pyautogui.moveTo()' to move the cursor back. Then it waits for the specified timeout.
             break
 
-
 window = tk.Tk()                                            # The 'tkinter.Tk()' constructor is used to create the main GUI window.
 window.title("Mouse Mover")                                 # Create window title.
 window.geometry("242x200")                                  # Set window size.
