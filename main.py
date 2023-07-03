@@ -7,16 +7,16 @@ import pyautogui                                            # Import module for 
 import time                                                 # Import module for delays.
 import threading                                            # Import module for concurrent execution.
 
-stop_event = threading.Event()                              # Create a threading event and a thread object for mouse movemet. The 'stop_event' is created as a 'threading.Event()' object. It will be used used to control execution of the mouse movement thread.
+stop_event = threading.Event()                              # Create a threading event and a thread object for mouse movement. The 'stop_event' is created as a 'threading.Event()' object. It will be used to control execution of the mouse movement thread.
 mouse_thread = None                                         # The 'mouse_thread' variable is initialized to 'None'.
 
 def start_mouse_movement():                                 # Function to start the mouse movement thread. It is called when the user clicks the 'Start' button.
     global mouse_thread
-    stop_event.clear()                                      # Reset stop event.
+    stop_event.clear()                                      # Reset stop_event.
     mouse_thread = threading.Thread(target=move_mouse)      # It creates a new 'mouse_thread' using 'threading.Thread()' and passes the 'move_mouse()' function as the target.
     mouse_thread.start()                                    # The thread is then started using 'move_thread.start().
 
-def stop_mouse_movement():                                  # This function is called when the user wants to stop the mouse movement and close the window. It sets the 'stop_event', waits for the 'mouse_thread' to complete using 'thread.join()'.
+def stop_mouse_movement():                                  # This function is called when the user wants to stop the mouse movement. It sets the 'stop_event', waits for the 'mouse_thread' to complete using 'thread.join()'.
     stop_event.set()
     if mouse_thread:
         mouse_thread.join()
@@ -64,7 +64,6 @@ def move_mouse():                                           # This function is r
         if stop_event.is_set():                             # If the 'stop_event' is set (indicating the movement should be stopped), the loop breakes. Otherwise, it updates the initial position and uses 'pyautogui.moveTo()' to move the cursor back. Then it waits for the specified timeout.
             break
 
-
 window = tk.Tk()                                            # The 'tkinter.Tk()' constructor is used to create the main GUI window.
 window.title("Mouse Mover")                                 # Create window title.
 window.geometry("242x200")                                  # Set window size.
@@ -100,7 +99,7 @@ error_label = tk.Label(window, text="")                                         
 error_label.pack()
 
 window.bind("<Motion>", update_initial_position)                                                                # This line bounds the <Motion> event to the 'update_initial_position' function using 'window.bind()'. It is triggered whenever the mouse cursor moves within the boundaries of the window. By binding this event to the 'update_initial_position function', we can update the initial position of the mouse cursor whenever it moves.
-window.bind("<KeyPress>", on_key_press) # This statement is used to bind the 'KeyPress' event to the function 'on_key_press'. This means that when a key is pressed while the window has focus, the 'on_key_press' function will be called to handle that event.
+window.bind("<KeyPress>", on_key_press)                                                                         # This statement is used to bind the 'KeyPress' event to the function 'on_key_press'. This means that when a key is pressed while the window has focus, the 'on_key_press' function will be called to handle that event.
 window.protocol("WM_DELETE_WINDOW", on_window_close)                                                            # This statement is used to set the behavior of the window when the user attempts to close it using the window manager's close button. The 'protocol' method is a method of the 'Tk' class from the 'tkinter' module, which represents the main window or the root window of a Tkinter application. It allows to define specific protocols of behaviors for different window events. 'WM_DELETE_WINDOW' protocol is triggered when the user tries to close the window. By associating the 'on_window_close' function with this protocol, we are specifying that when the window is being closed, the 'on_window_close' function should be called which then accordingly calls 'stop_mouse_movement' function to stop the mouse movement and perform any necessary cleanup operations. The 'stop_mouse_movement' function is defined earlier in the code and contains the logic to stop the mouse movement thread, join the thread and destroy the window. By setting the 'WM_DELETE_WINDOW' protocol to this function, we ensure that the mouse movement stops and the window is closed whent the user attempts to close the window.
 
 window.mainloop()                                                                                               # Start the GUI event loop, which listens for user interactions and updates the GUI accordingly.
