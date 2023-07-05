@@ -4,4 +4,5 @@ This program moves mouse cursor for chosen offset with the given timeout. When t
 ![image](https://github.com/GatisKr/Mouse_Mover/assets/129754570/e03509a3-a984-47c7-ad6b-c9e30718bd55)
 
 Press 'enter' key or click 'start' to initiate mouse cursor movement.
+
 Press 'esc' key, click the 'stop' or close program window to stop mouse cursor movement.
